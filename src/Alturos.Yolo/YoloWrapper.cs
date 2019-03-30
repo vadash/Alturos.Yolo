@@ -265,7 +265,7 @@ namespace Alturos.Yolo
             foreach (var item in container.candidates.Where(o => o.h > 0 || o.w > 0))
             {
                 var objectType = this._objectType[(int)item.obj_id];
-                var yoloItem = new YoloItem() { X = (int)item.x, Y = (int)item.y, Height = (int)item.h, Width = (int)item.w, Confidence = item.prob, Type = objectType };
+                var yoloItem = new YoloItem() { X = item.x, Y = item.y, Height = item.h, Width = item.w, Confidence = item.prob, Type = objectType };
                 yoloItems.Add(yoloItem);
             }
 

@@ -31,7 +31,7 @@ namespace Alturos.Yolo
             this._trackingObject = trackingObject;
         }
 
-        public YoloTrackingItem Analyse(byte[] imageData)
+        public YoloItem Analyse(byte[] imageData)
         {
             var items = this._yoloWrapper.Detect(imageData);
 
@@ -42,9 +42,7 @@ namespace Alturos.Yolo
             }
 
             this._trackingObject = probableObject.Center();
-            var taggedImageData = this.DrawImage(imageData, probableObject);
-
-            return new YoloTrackingItem(probableObject, this._index++, taggedImageData);
+            return probableObject;
         }
 
         private YoloItem FindBestMatch(IEnumerable<YoloItem> items, int maxDistance)

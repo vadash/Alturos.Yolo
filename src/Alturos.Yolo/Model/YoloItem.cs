@@ -6,14 +6,14 @@ namespace Alturos.Yolo.Model
     {
         public string Type { get; set; }
         public double Confidence { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
 
         public Point Center()
         {
-            return new Point(this.X + this.Width / 2, this.Y + this.Height / 2);
+            return new Point((int) (this.X + this.Width / 2), (int) (this.Y + this.Height / 2));
         }
     }
 }
