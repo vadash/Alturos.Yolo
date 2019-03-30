@@ -13,7 +13,6 @@ namespace Alturos.Yolo
         private YoloWrapper _yoloWrapper;
         private Point _trackingObject;
         private int _maxDistance;
-        private int _index;
 
         public YoloTracking(YoloWrapper yoloWrapper, int maxDistance = 1000)
         {
@@ -61,24 +60,6 @@ namespace Alturos.Yolo
         private double Pow2(double x)
         {
             return x * x;
-        }
-
-        private byte[] DrawImage(byte[] imageData, YoloItem item)
-        {
-            using (var memoryStream = new MemoryStream(imageData))
-            using (var image = Image.FromStream(memoryStream))
-            using (var canvas = Graphics.FromImage(image))
-            using (var pen = new Pen(Brushes.Pink, 3))
-            {
-                canvas.DrawRectangle(pen, item.X, item.Y, item.Width, item.Height);
-                canvas.Flush();
-
-                using (var memoryStream2 = new MemoryStream())
-                {
-                    image.Save(memoryStream2, ImageFormat.Bmp);
-                    return memoryStream2.ToArray();
-                }
-            }
         }
     }
 }

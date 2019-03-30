@@ -11,12 +11,11 @@ namespace Alturos.Yolo
 {
     public class YoloWrapper : IDisposable
     {
-        public const int MaxObjects = 1000;
+        public const int MaxObjects = 100;
         private const string YoloLibraryCpu = @"x64\yolo_cpp_dll_cpu.dll";
         private const string YoloLibraryGpu = @"x64\yolo_cpp_dll_gpu.dll";
 
         private readonly Dictionary<int, string> _objectType = new Dictionary<int, string>();
-        private readonly ImageAnalyzer _imageAnalyzer = new ImageAnalyzer();
 
         public DetectionSystem DetectionSystem { get; private set; } = DetectionSystem.Unknown;
         public EnvironmentReport EnvironmentReport { get; private set; }
@@ -217,11 +216,6 @@ namespace Alturos.Yolo
 
         public IEnumerable<YoloItem> Detect(byte[] imageData)
         {
-            if (!this._imageAnalyzer.IsValidImageFormat(imageData))
-            {
-                throw new Exception("Invalid image data, wrong image format");
-            }
-
             var container = new BboxContainer();
             var size = Marshal.SizeOf(imageData[0]) * imageData.Length;
             var pnt = Marshal.AllocHGlobal(size);
@@ -246,7 +240,7 @@ namespace Alturos.Yolo
                     throw new NotImplementedException("C++ dll compiled incorrectly");
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 return null;
             }
